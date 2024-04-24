@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Objects</title>
+</head>
+<body>
+<div id="game"></div>
+<script>
+    function Hero(image, top, left, size, speed){
+        this.image = image;
+        this.top = top;
+        this.left = left;
+        this.size = size;
+        // thêm thuộc tính speed
+        this.speed = speed;
+        this.getHeroElement = function(){
+            return '<img width="'+ this.size + '"' +
+                ' height="'+ this.size + '"' +
+                ' src="' + this.image +'"' +
+                ' style="top: '+this.top+'px; left:'+this.left+'px;position:absolute;" />';
+        }
+        this.moveRight = function(){
+            // sử dụng thuộc tính tốc độ
+            this.left += this.speed;
+            console.log('ok: ' + this.left);
+        }
+    // viết thêm các hàm để ảnh di chuyển lên, xuống, sang trái
+        this.moveLeft = function (){
+            this.left -= this.speed;
+            console.log('ok: ' + this.left)
+        }
+        this.moveUp = function (){
+            this.top -= this.speed;
+            console.log('ok: ' + this.left)
+        }
+        this.moveDown = function (){
+            this.top += this.speed;
+            console.log('ok: ' + this.left)
+        }
+    }
+    // thêm giá trị tốc độ là 50 khi khai báo đối tượng
+    var hero = new Hero('pikachu.png', 20, 30, 200, 50);
+    function start() {
+        if (hero.left < window.innerWidth - hero.size) {
+            hero.moveRight();
+        }else
+        if (hero.left > 0) {
+            hero.moveLeft();
+        }else
+        if (hero.top > 0) {
+            hero.moveUp();
+        }else
+        if (hero.top < window.innerHeight - hero.size){
+            hero.moveDown();
+        }
+        document.getElementById('game').innerHTML = hero.getHeroElement();
+        setTimeout(start, 500)
+    }
+    start();
+</script>
+</body>
+</html>
